@@ -3,7 +3,8 @@
 /*
  la scène est un graphe représentant une hiérarchie d'objets 3D.
  elle est maintenue côté CPU et assure le transfert d'objets vers le GPU.
- il peut y avoir plusieurs scènes.
+ il peut y avoir plusieurs scènes dans la même application.
+ les scènes possèdent une matrice de transformation.
  */
 var scene = new THREE.Scene();
 
@@ -13,12 +14,12 @@ var scene = new THREE.Scene();
  il en existe deux types:
 
     - perspective:
-        la caméra "normale", avec un angle d'ouverture (focale)
+        la caméra "normale", avec un angle d'ouverture variable (focale)
         distorsion des objets en fonction de leur distance
         la plus utilisée dans les environnements 3D "normaux"
 
     - orthographique:
-        une caméra "2D" sans focale
+        une caméra "2D" sans focale, sans profondeur
         rend tous les objets "à plat", sans perspective
         utile pour les UI, les HUD, le post processing
 
@@ -36,9 +37,9 @@ var camera = new THREE.PerspectiveCamera( 60, 16 / 9, 1, 10000 );
         possibilité d'avoir des options de stylisation avancées
         option valide pour des scènes simples, cross platform
 
-     - CSS transformation de plans (aka 3d postcards ou 2.5D)
+     - CSS:
         les objets sont des élément du DOM HTML
-        on calcule uniquement leur matrice de transformation
+        on calcule / assigne uniquement leur matrice de transformation
         le rendu proprement dit est pris en charge par le navigateur, souvent accéléré
         option valide pour des scènes simples, cross platform % prise en charge CSS 3
 
@@ -47,9 +48,7 @@ var camera = new THREE.PerspectiveCamera( 60, 16 / 9, 1, 10000 );
         temps de marshalling non négligeable, meilleurs temps de rendu
         recommandé pour des scènes 2D/3D ayant soit un nombre important d'éléments soit des maillages de grande taille
 
- le moteur de rendu attend 2 paramètres pour rendre une scène:
-    - la scène à rendre
-    - la caméra avec laquelle rendre la scène
+ le moteur de rendu attend 2 paramètres ; une scène et une caméra.
  */
 var renderer = new THREE.WebGLRenderer( {/* [+] parameters */} );
 
