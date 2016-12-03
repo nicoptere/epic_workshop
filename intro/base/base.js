@@ -3,9 +3,8 @@
 var scene = new THREE.Scene();
 /*
  la scène est un graphe représentant une hiérarchie d'objets 3D.
- elle est maintenue côté CPU et assure le transfert d'objets vers le GPU.
- il peut y avoir plusieurs scènes dans la même application.
- les scènes possèdent une matrice de transformation.
+ elle est maintenue côté CPU, il peut y avoir plusieurs scènes dans la même application.
+ les scènes possèdent une matrice de transformation qui se répercute sur tous ses enfants.
  */
 
 
@@ -55,7 +54,7 @@ var renderer = new THREE.WebGLRenderer( {/* [+] parameters */} );
     document.body.appendChild( renderer.domElement );
     /*
       le renderer WebGL crée un élément canvas, pour voir quelque chose.
-      il faut ajouter ce canvas sur la scène.
+      il faut ajouter ce canvas au DOM.
      */
 
 
@@ -72,19 +71,14 @@ var geometry = new THREE.CylinderGeometry(6,18,50,64,32,false);
 var material = new THREE.MeshBasicMaterial({color:0xFF0000 /*, [+] parameters */});
 /*
  un matériau contient des informations sur l'aspect d'un objet.
- il y a un nombre variablme de paramètres.
+ il y a un nombre variable de paramètres.
  certains paramètres nécessitent l'ajout de propiétés géométriques
  */
 
 
 var mesh = new THREE.Mesh( geometry, material );
 /*
-  Mesh est un object 3d qui met en relation une géométrie et un matériau.
- */
-
-//on recule l'object sur l'axe Z pour qu'il soit visible par la caméra.
-mesh.position.z = -100;
-/*
+ Mesh est un object 3d qui met en relation une géométrie et un matériau.
  le mesh maintient une matrice de transformation permettant de positionner, pivoter et mettre l'objet à l'échelle.
  les propiétés sont accessibles via:
     - mesh.position.x/y/z:
@@ -97,10 +91,11 @@ mesh.position.z = -100;
         met à l'échelle sur les axes X,Y,Z, les valeurs doivent toujours être différentes de 0, au moins sur un axe.
  */
 
-    scene.add( mesh );
-    //on ajoute le mesh au graphe de la scène
-    //NB on peut manipuler le mesh sans qu'il soit ajouté à la scène
-
+//on recule l'object sur l'axe Z pour qu'il soit visible par la caméra.
+mesh.position.z = -100;
+//on ajoute le mesh au graphe de la scène
+scene.add( mesh );
+//NB on peut manipuler le mesh sans qu'il soit ajouté à la scène
 
 renderer.render( scene, camera );
 //on appelle un rendu en lui passant la scène et la caméra
