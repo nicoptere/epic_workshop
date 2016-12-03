@@ -1,14 +1,15 @@
 
 
+var scene = new THREE.Scene();
 /*
  la scène est un graphe représentant une hiérarchie d'objets 3D.
  elle est maintenue côté CPU et assure le transfert d'objets vers le GPU.
  il peut y avoir plusieurs scènes dans la même application.
  les scènes possèdent une matrice de transformation.
  */
-var scene = new THREE.Scene();
 
 
+var camera = new THREE.PerspectiveCamera( 60, 16 / 9, 1, 10000 );
 /*
  la caméra représente notre "oeil" dans la scène, il permet de choisir ce qu'on regarde.
  il en existe deux types:
@@ -24,9 +25,9 @@ var scene = new THREE.Scene();
         utile pour les UI, les HUD, le post processing
 
  */
-var camera = new THREE.PerspectiveCamera( 60, 16 / 9, 1, 10000 );
 
 
+var renderer = new THREE.WebGLRenderer( {/* [+] parameters */} );
 /*
  le moteur de rendu, ce qui permet de produire une image de notre scène 3D.
  il existe plusieurs types de moteurs de rendu:
@@ -49,16 +50,16 @@ var camera = new THREE.PerspectiveCamera( 60, 16 / 9, 1, 10000 );
         recommandé pour des scènes 2D/3D ayant soit un nombre important d'éléments soit des maillages de grande taille
 
  le moteur de rendu attend 2 paramètres ; une scène et une caméra.
- */
-var renderer = new THREE.WebGLRenderer( {/* [+] parameters */} );
+*/
 
+    document.body.appendChild( renderer.domElement );
     /*
       le renderer WebGL crée un élément canvas, pour voir quelque chose.
       il faut ajouter ce canvas sur la scène.
      */
-    document.body.appendChild( renderer.domElement );
 
 
+var geometry = new THREE.CylinderGeometry(6,18,50,64,32,false);
 /*
  une géométrie contient des informations sur la partie "physique" d'un objet:
  - les positions des points (vertices)
@@ -66,22 +67,23 @@ var renderer = new THREE.WebGLRenderer( {/* [+] parameters */} );
  - les indices de faces: comment connecter les points pour dessiner des triangles
  + des attributs personnalisés
  */
-var geometry = new THREE.CylinderGeometry(6,18,50,64,32,false);
 
 
+var material = new THREE.MeshBasicMaterial({color:0xFF0000 /*, [+] parameters */});
 /*
  un matériau contient des informations sur l'aspect d'un objet.
  il y a un nombre variablme de paramètres.
  certains paramètres nécessitent l'ajout de propiétés géométriques
  */
-var material = new THREE.MeshBasicMaterial({color:0xFF0000 /*, [+] parameters */});
 
 
+var mesh = new THREE.Mesh( geometry, material );
 /*
   Mesh est un object 3d qui met en relation une géométrie et un matériau.
  */
-var mesh = new THREE.Mesh( geometry, material );
 
+//on recule l'object sur l'axe Z pour qu'il soit visible par la caméra.
+mesh.position.z = -100;
 /*
  le mesh maintient une matrice de transformation permettant de positionner, pivoter et mettre l'objet à l'échelle.
  les propiétés sont accessibles via:
@@ -95,13 +97,10 @@ var mesh = new THREE.Mesh( geometry, material );
         met à l'échelle sur les axes X,Y,Z, les valeurs doivent toujours être différentes de 0, au moins sur un axe.
  */
 
-    //on recule l'object sur l'axe Z pour qu'il soit visible par la caméra.
-    mesh.position.z = -100;
-
+    scene.add( mesh );
     //on ajoute le mesh au graphe de la scène
     //NB on peut manipuler le mesh sans qu'il soit ajouté à la scène
-    scene.add( mesh );
 
 
-//on appelle un rendu en lui passant la scène et la caméra
 renderer.render( scene, camera );
+//on appelle un rendu en lui passant la scène et la caméra
