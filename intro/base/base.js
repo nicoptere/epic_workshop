@@ -51,12 +51,6 @@ var renderer = new THREE.WebGLRenderer( {/* [+] parameters */} );
  le moteur de rendu attend 2 paramètres ; une scène et une caméra.
 */
 
-    document.body.appendChild( renderer.domElement );
-    /*
-      le renderer WebGL crée un élément canvas, pour voir quelque chose.
-      il faut ajouter ce canvas au DOM.
-     */
-
 
 var geometry = new THREE.CylinderGeometry(6,18,50,64,32,false);
 /*
@@ -93,9 +87,14 @@ var mesh = new THREE.Mesh( geometry, material );
 
 //on recule l'object sur l'axe Z pour qu'il soit visible par la caméra.
 mesh.position.z = -100;
+
+    //NB on peut manipuler le mesh sans qu'il soit ajouté à la scène
 //on ajoute le mesh au graphe de la scène
 scene.add( mesh );
-//NB on peut manipuler le mesh sans qu'il soit ajouté à la scène
 
-renderer.render( scene, camera );
+//le renderer WebGL crée un élément canvas, pour voir quelque chose.
+//il faut ajouter ce canvas au DOM.
+document.body.appendChild( renderer.domElement );
+
 //on appelle un rendu en lui passant la scène et la caméra
+renderer.render( scene, camera );
