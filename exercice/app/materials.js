@@ -16,7 +16,7 @@ var materials = function( exports ){
     exports.add = function( config ){
 
         config.params.color = 0xFFFFFF;
-        exports[ config.name ] = new THREE.MeshBasicMaterial(config.params);
+        exports[ config.name ] = new THREE.MeshLambertMaterial(config.params);
 
     };
 

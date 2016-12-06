@@ -15,8 +15,7 @@ var textures = function( exports ){
 
         if( queue.length == 0 ){
 
-            console.log( exports );
-            if( onComplete )onComplete();
+            if( onComplete )onComplete( exports );
             return;
 
         }

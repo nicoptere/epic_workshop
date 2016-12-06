@@ -1,6 +1,13 @@
 var PI = Math.PI;
 var PI2 = PI * 2;
+var RAD = PI / 180;
+function lerp ( t, a, b ){ return a + t * ( b - a ); }
+function norm( t, a, b ){return ( t - a ) / ( b - a );}
+function map( t, a0, b0, a1, b1 ){ return lerp( norm( t, a0, b0 ), a1, b1 );}
+
 var w, h, scene, camera, controls, renderer;
+var ground, grass, rock, deer;
+
 function init(){
 
     w = window.innerWidth;
@@ -8,12 +15,19 @@ function init(){
 
     scene = new THREE.Scene();
     camera = new THREE.PerspectiveCamera( 60, 16 / 9, 1, 10000 );
-    camera.position.z = 100;
+    camera.position.set( -38.11485540374866, 11.733462175878932, 26.280040826937498 );
 
     renderer = new THREE.WebGLRenderer();
+    renderer.shadowMap.enabled = true;
+    renderer.shadowMap.renderReverseSided = false;
     document.body.appendChild( renderer.domElement );
 
     controls = new THREE.OrbitControls( camera, renderer.domElement );
+    controls.minDistance = 35;
+    controls.maxDistance = 100;
+    controls.minPolarAngle = RAD * 10;
+    controls.maxPolarAngle = RAD * 90;
+    controls.target.y = 10;
 
     window.addEventListener( "resize", resize );
     resize();
@@ -44,7 +58,6 @@ function initTextures(){
     textures.load( urls, creaeObjects );
 }
 
-var ground, deer, grass, rock;
 function creaeObjects(){
 
     //les géométries et les textures sont chargées
@@ -61,7 +74,7 @@ function creaeObjects(){
         },
         {
             name:"ground",
-            params:{ map:textures.ground_0  }
+            params:{ map:textures.ground_0}
         },
         {
             name:"rock",
@@ -76,25 +89,17 @@ function creaeObjects(){
     ];
     materials.init( config );//synchrone, les materiaux sont disponibles immédiatement
 
-    var radius = 75;
-    var height = .1;
-    ground = new THREE.Mesh( new THREE.SphereBufferGeometry(radius, 64,128, 0,PI, 0, PI ), materials.ground );
-    ground.rotateX( - PI / 2 );
-    ground.scale.z = height;
-    ground.position.y = -radius * height;
-    textures.ground_0.wrapS = textures.ground_0.wrapT = THREE.RepeatWrapping;
-    textures.ground_0.repeat.multiplyScalar( 10 );
-    scene.add( ground );
 
-    deer = new THREE.Mesh( geometries.deer, materials.deer );
-    scene.add(deer);
+    deer.init( scene );
 
-    grass = new THREE.Mesh( geometries.grass, materials.grass );
-    scene.add(grass);
+    ground.init();
+    scene.add( ground.mesh );
 
-    rock = new THREE.Mesh( geometries.rock, materials.rock );
-    scene.add(rock);
+    rocks.init();
+    scene.add( rocks.group );
 
+    grass.init( renderer, ground, rocks );
+    scene.add( grass.group );
 
     initLights();
 
@@ -103,6 +108,7 @@ function creaeObjects(){
 function initLights(){
 
     console.log( "init lights & start" );
+
     //lance une boucle de mise à jour
     lights.init( scene, update );
 

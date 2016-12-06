@@ -60,7 +60,6 @@ JSONLoader.load( "../../res/elk.app", function( e ){
     var bb = deer.geometry.boundingBox;
     console.log( bb );
 
-
     addMesh(bb.min, 0x00FF00);
     addMesh(bb.max, 0x0000FF);
 
