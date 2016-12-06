@@ -22,7 +22,7 @@ var lights = function(exports){
 
         // https://threejs.org/examples/webgl_lights_hemisphere.html
 
-        var hemiLight = new THREE.HemisphereLight( 0xffffff, 0xffffff, 0.8 );
+        var hemiLight = new THREE.HemisphereLight( 0xffffff, 0xffffff, 0.9 );
         hemiLight.color.setHSL( 0.6, 1, 0.6 );
         hemiLight.groundColor.setHSL( 0.095, 1, 0.75 );
         hemiLight.position.set( 0, 500, 0 );
@@ -33,7 +33,7 @@ var lights = function(exports){
         var uniforms = {
             topColor:    { value: new THREE.Color( 0x0077ff ) },
             bottomColor: { value: new THREE.Color( 0xffffff ) },
-            offset:      { value: 33 },
+            offset:      { value: 1000 },
             exponent:    { value: 0.6 }
         };
         uniforms.topColor.value.copy( hemiLight.color );
@@ -60,7 +60,6 @@ var lights = function(exports){
 
 
         dirLight.castShadow = true;
-
         dirLight.shadow.mapSize.width = 2048;
         dirLight.shadow.mapSize.height = 2048;
 
@@ -72,6 +71,7 @@ var lights = function(exports){
 
         dirLight.shadow.camera.far = 3500;
         dirLight.shadow.bias = -0.0001;
+        dirLight.shadow.darkness = 0.2;
 
         scene.add( dirLight );
         return dirLight;

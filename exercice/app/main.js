@@ -19,7 +19,8 @@ function init(){
 
     renderer = new THREE.WebGLRenderer();
     renderer.shadowMap.enabled = true;
-    renderer.shadowMap.renderReverseSided = false;
+    renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+    // renderer.shadowMap.renderReverseSided = false;
     document.body.appendChild( renderer.domElement );
 
     controls = new THREE.OrbitControls( camera, renderer.domElement );
@@ -66,7 +67,7 @@ function creaeObjects(){
     var config = [
         {
             name:"deer",
-            params:{ map:textures.deer }
+            params:{ map:textures.deer}
         },
         {
             name:"grass",
@@ -80,7 +81,7 @@ function creaeObjects(){
             name:"rock",
             params:{
                 map:textures.rock_diffuse,
-                // normalMap: textures.rock_normal,
+                normalMap: textures.rock_normal,
                 // displacementMap:textures.rock_specular,
                 // displacementScale:10,
                 // displacementBias:0

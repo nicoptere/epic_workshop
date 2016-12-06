@@ -16,7 +16,10 @@ var materials = function( exports ){
     exports.add = function( config ){
 
         config.params.color = 0xFFFFFF;
-        exports[ config.name ] = new THREE.MeshLambertMaterial(config.params);
+        var mat = new THREE.MeshStandardMaterial(config.params);
+        mat.roughness = .75;
+        mat.metalness = .05;
+        exports[ config.name ] = mat;
 
     };
 
