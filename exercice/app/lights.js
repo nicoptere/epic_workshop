@@ -5,16 +5,15 @@ var lights = function(exports){
     exports.init = function( scene, onComplete ){
 
         shaderLoader.load( [
-                "app/glsl/skydome_vs.glsl",
-                "app/glsl/skydome_fs.glsl"
+                "app/glsl/skydome_vert.glsl",
+                "app/glsl/skydome_frag.glsl"
             ],
             function(){
                 createSky( scene );
+                if( onComplete )onComplete();
             } );
 
         createLight( scene );
-
-        if( onComplete )onComplete();
 
     };
 
@@ -44,15 +43,15 @@ var lights = function(exports){
         var skyGeo = new THREE.SphereGeometry( 4000, 32, 15 );
         var skyMat = new THREE.ShaderMaterial( {
             uniforms: uniforms,
-            vertexShader: shaderLoader.skydome_vs,
-            fragmentShader: shaderLoader.skydome_fs,
+            vertexShader: shaderLoader.skydome_vert,
+            fragmentShader: shaderLoader.skydome_frag,
             side: THREE.BackSide } );
         var sky = new THREE.Mesh( skyGeo, skyMat );
         scene.add( sky );
 
     }
     function createLight( scene ){
-        // /*
+
         var dirLight = new THREE.DirectionalLight( 0xffffff, 1 );
         dirLight.color.setHSL( 0.1, 1, 0.95 );
         dirLight.position.set( -1, 1.75, 1 );
@@ -70,28 +69,9 @@ var lights = function(exports){
         dirLight.shadow.camera.bottom = -d;
 
         dirLight.shadow.camera.far = 3500;
-        dirLight.shadow.bias = -0.0001;
-        dirLight.shadow.darkness = 0.2;
+        dirLight.shadow.bias = 0.00001;
 
         scene.add( dirLight );
-        return dirLight;
-        //*/
-        /*
-        var light = new THREE.SpotLight( 0xFFFFFF, 1, 100, Math.PI / 4, .5 );
-        light.shadow.camera.near = 1;
-        light.shadow.camera.far =  100;
-
-
-        light.castShadow = true;
-        light.shadow.bias = 0.0001;
-        light.shadow.darkness = 0.2;
-        light.shadow.mapSize.width  = light.shadow.mapSize.height = 2048;
-
-        light.position.x = 0;
-        light.position.y = 150;
-        light.position.z = 0;
-        scene.add( light );
-        //*/
     }
     exports.animate = function(){
 

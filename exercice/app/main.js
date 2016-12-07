@@ -20,8 +20,10 @@ function init(){
     renderer = new THREE.WebGLRenderer();
     renderer.shadowMap.enabled = true;
     renderer.shadowMap.type = THREE.PCFSoftShadowMap;
-    // renderer.shadowMap.renderReverseSided = false;
     document.body.appendChild( renderer.domElement );
+
+    // postprocessing
+    post_processing.init( renderer, scene, camera );
 
     controls = new THREE.OrbitControls( camera, renderer.domElement );
     controls.minDistance = 35;
@@ -56,7 +58,15 @@ function initTextures(){
         'res/rock_normal.jpg',
         'res/rock_specular.jpg'
     ];
-    textures.load( urls, creaeObjects );
+    textures.load( urls, initLights );
+}
+
+function initLights(){
+
+    //charge et crée les lumières
+    console.log( "init lights" );
+    lights.init( scene, creaeObjects );
+
 }
 
 function creaeObjects(){
@@ -90,7 +100,6 @@ function creaeObjects(){
     ];
     materials.init( config );//synchrone, les materiaux sont disponibles immédiatement
 
-
     deer.init( scene );
 
     ground.init();
@@ -102,33 +111,39 @@ function creaeObjects(){
     grass.init( renderer, ground, rocks );
     scene.add( grass.group );
 
-    initLights();
-
-}
-
-function initLights(){
-
-    console.log( "init lights & start" );
-
     //lance une boucle de mise à jour
-    lights.init( scene, update );
+    update();
 
 }
+
+
 
 function update(){
+
     requestAnimationFrame( update );
+
     controls.update();
+
     renderer.render( scene, camera );
+
+    post_processing.render();
+
 }
 
 function resize(){
 
     w = window.innerWidth;
     h = window.innerHeight;
+
     renderer.setSize(w,h);
+
+    post_processing.setSize(w,h);
 
     camera.aspect = w / h;
     camera.updateProjectionMatrix();
 
 }
-init();
+
+window.onload = function(){
+    init();
+};

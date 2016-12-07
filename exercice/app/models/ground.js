@@ -7,21 +7,21 @@ var ground = function( exports ) {
         exports.height = height = height || .25;
 
         textures.ground_0.wrapS = textures.ground_0.wrapT = THREE.RepeatWrapping;
-        textures.ground_0.repeat.multiplyScalar( 10 );
+        textures.ground_0.repeat.multiplyScalar( 6 );
 
         mesh = new THREE.Mesh(new THREE.SphereBufferGeometry(radius, 64, 128, 0, PI, 0, PI), materials.ground );
         // mesh = new THREE.Mesh(new THREE.IcosahedronBufferGeometry(radius, 4), new THREE.MeshBasicMaterial({map: textures.ground_0}));
 
         mesh.receiveShadow = true;
-
         mesh.rotateX( -PI / 2 );
         mesh.scale.z = height;
         mesh.position.y = -radius * height;
+        exports.mesh = mesh;
 
         /*
         shaderLoader.load([
-            "app/glsl/ground_vs.glsl",
-            "app/glsl/ground_fs.glsl"
+            "app/glsl/ground_vert.glsl",
+            "app/glsl/ground_frag.glsl"
         ], function () {
 
             textures.load( [
@@ -32,7 +32,6 @@ var ground = function( exports ) {
 
         });
         //*/
-        exports.mesh = mesh;
 
     };
 
@@ -44,18 +43,21 @@ var ground = function( exports ) {
 
         material = new THREE.ShaderMaterial({
             uniforms: {
-
                 ground_0: {type: "t", value: textures.ground_0},
                 ground_1: {type: "t", value: textures.ground_1},
                 noise: {type: "t", value: textures.noise},
                 repeat: {type: 'f', value: 10},
                 time: {type: 'f', value: 0 }
-
             },
-            vertexShader: shaderLoader.ground_vs,
-            fragmentShader: shaderLoader.ground_fs
-
+            vertexShader:   shaderLoader.ground_vert,
+            fragmentShader: shaderLoader.ground_frag,
+            // transparent:true,
+            roughness : .75,
+            metalness : .05,
+            map: textures.ground_0
         });
+        console.log (material );
+
         mesh.material = material;
     }
 

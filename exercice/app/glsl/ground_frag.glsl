@@ -1,5 +1,4 @@
 
-
 uniform sampler2D ground_0;
 uniform sampler2D ground_1;
 uniform sampler2D noise;
