@@ -23,7 +23,7 @@ var grass = function( exports ) {
         var geom = geometries.grass;
         geom.computeBoundingBox();
 
-        //ce est lme centre de la bounding box
+        //center est me centre de la bounding box
         var bbox = geom.boundingBox;
         var center = bbox.min.add( bbox.max.clone().sub( bbox.min ).multiplyScalar( .5 ) );
 
