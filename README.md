@@ -7,10 +7,11 @@ il y a un slide deck ici pour l'intro et un peu de contexte: https://slides.com/
 pré-requis:
 
 * télécharger ou cloner ce repo
-* installer [THREE.js](https://github.com/mrdoob/three.js/) à la racine du dossier
 * installer [chrome shader editor extension](chrome.google.com/webstore/detail/shader-editor/ggeaidddejpbakgafapihjbgdlbbbpob)
 * un serveur local ([xampp](https://www.apachefriends.org/fr/index.html) ou autre)
 
+j'ai extrait certains fichiers de THREE pour éviter de télécharger tout le repo (725Mo au 09/12/16) 
+vous pouvez toutefois l'installer à la racine du dossier cloné si vous souhaitez explorer l'API [THREE.js](https://github.com/mrdoob/three.js/) 
 
 ### origine des ressources
 
