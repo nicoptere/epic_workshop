@@ -2,12 +2,17 @@
 
 ![result](intro/slides/cover.jpg)
 
+il y a un slide deck ici pour l'intro et un peu de contexte: https://slides.com/nicolasbarradeau/three-mon-ami/ 
+
 pré-requis:
 
 * télécharger ou cloner ce repo
 * installer [THREE.js](https://github.com/mrdoob/three.js/) à la racine du dossier
 * installer [chrome shader editor extension](chrome.google.com/webstore/detail/shader-editor/ggeaidddejpbakgafapihjbgdlbbbpob)
 * un serveur local ([xampp](https://www.apachefriends.org/fr/index.html) ou autre)
+
+
+### origine des ressources
 
 maillages:
 

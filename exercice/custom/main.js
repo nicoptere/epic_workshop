@@ -7,7 +7,7 @@ function norm( t, a, b ){return ( t - a ) / ( b - a );}
 function map( t, a0, b0, a1, b1 ){ return lerp( norm( t, a0, b0 ), a1, b1 );}
 
 var w, h, scene, camera, controls, renderer;
-var ground, grass, rock, deer;
+var ground, grass, rocks, deer, environment;
 
 function init(){
 
@@ -49,11 +49,18 @@ function initTextures(){
         'res/rock_diffuse.jpg',
         'res/rock_normal.jpg'
     ];
-    textures.load( urls, createObjects );
+    textures.load( urls, initLights );
+}
+
+function initLights(){
+
+    //charge et crée les lumières
+    console.log( "init lights" );
+    lights.init( scene, createObjects );
+
 }
 
 function createObjects(){
-
     //les géométries et les textures sont chargées
     //on peut créer des matériaux et des meshes
     console.log( "create objects" );

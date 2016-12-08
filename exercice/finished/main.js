@@ -6,7 +6,7 @@ function norm( t, a, b ){return ( t - a ) / ( b - a );}
 function map( t, a0, b0, a1, b1 ){ return lerp( norm( t, a0, b0 ), a1, b1 );}
 
 var w, h, scene, camera, controls, renderer;
-var ground, grass, rock, deer;
+var ground, grass, rocks, deer, environment;
 
 function init(){
 
