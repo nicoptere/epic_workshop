@@ -1,3 +1,4 @@
+
 var PI = Math.PI;
 var PI2 = PI * 2;
 var RAD = PI / 180;
@@ -21,9 +22,6 @@ function init(){
     renderer.shadowMap.enabled = true;
     renderer.shadowMap.type = THREE.PCFSoftShadowMap;
     document.body.appendChild( renderer.domElement );
-
-    // postprocessing
-    post_processing.init( renderer, scene, camera );
 
     controls = new THREE.OrbitControls( camera, renderer.domElement );
     controls.minDistance = 35;
@@ -58,18 +56,10 @@ function initTextures(){
         'res/rock_diffuse.jpg',
         'res/rock_normal.jpg'
     ];
-    textures.load( urls, initLights );
+    textures.load( urls, createObjects );
 }
 
-function initLights(){
-
-    //charge et crée les lumières
-    console.log( "init lights" );
-    lights.init( scene, creaeObjects );
-
-}
-
-function creaeObjects(){
+function createObjects(){
 
     //les géométries et les textures sont chargées
     //on peut créer des matériaux et des meshes
@@ -99,10 +89,6 @@ function creaeObjects(){
             }
         }
     ];
-
-    //ajoute un brouillard de distance
-    scene.fog = new THREE.Fog( 0xffffff, 1, 5000 );
-
 
     //initialise les matériaux qui seront utillisé par les objets
     materials.init( config );
@@ -136,9 +122,7 @@ function update(){
 
     controls.update();
 
-    // renderer.render( scene, camera );
-
-    post_processing.render();
+    renderer.render( scene, camera );
 
 }
 
@@ -146,11 +130,7 @@ function resize(){
 
     w = window.innerWidth;
     h = window.innerHeight;
-
     renderer.setSize(w,h);
-
-    post_processing.setSize(w,h);
-
     camera.aspect = w / h;
     camera.updateProjectionMatrix();
 

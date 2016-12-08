@@ -9,8 +9,8 @@ var ground = function( exports ) {
         textures.ground_0.wrapS = textures.ground_0.wrapT = THREE.RepeatWrapping;
         textures.ground_0.repeat.multiplyScalar( 6 );
 
-        mesh = new THREE.Mesh(new THREE.SphereBufferGeometry(radius, 32, 32, 0, PI, 0, PI), materials.ground );
-        // mesh = new THREE.Mesh(new THREE.IcosahedronBufferGeometry(radius, 6), materials.ground);
+        // mesh = new THREE.Mesh(new THREE.SphereBufferGeometry(radius, 32, 32, 0, PI, 0, PI), materials.ground );
+        mesh = new THREE.Mesh(new THREE.IcosahedronBufferGeometry(radius, 6), materials.ground);
 
         mesh.receiveShadow = true;
         mesh.rotateX( -PI / 2 );
@@ -29,8 +29,8 @@ var ground = function( exports ) {
         }
 
         shaderLoader.load([
-            "app/glsl/ground_vert.glsl",
-            "app/glsl/ground_frag.glsl"
+            "finished/glsl/ground_vert.glsl",
+            "finished/glsl/ground_frag.glsl"
         ], function () {
 
             textures.load( [
