@@ -56,7 +56,8 @@ function initLights(){
 
     //charge et crée les lumières
     console.log( "init lights" );
-    lights.init( scene, createObjects );
+    // lights.init( scene, createObjects );
+    createObjects();
 
 }
 
