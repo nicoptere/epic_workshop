@@ -15,7 +15,7 @@ function init(){
 
     scene = new THREE.Scene();
     camera = new THREE.PerspectiveCamera( 60, 16 / 9, 1, 10000 );
-    camera.position.set( -38.11485540374866, 11.733462175878932, 26.280040826937498 );
+    camera.position.set( -40, 10, 25 );
 
     renderer = new THREE.WebGLRenderer();
     renderer.shadowMap.enabled = true;
@@ -99,6 +99,11 @@ function creaeObjects(){
             }
         }
     ];
+
+    //ajoute un brouillard de distance
+    scene.fog = new THREE.Fog( 0xffffff, 1, 5000 );
+
+
     //initialise les matériaux qui seront utillisé par les objets
     materials.init( config );
 
@@ -125,15 +130,13 @@ function creaeObjects(){
 
 }
 
-
-
 function update(){
 
     requestAnimationFrame( update );
 
     controls.update();
 
-//    renderer.render( scene, camera );
+    // renderer.render( scene, camera );
 
     post_processing.render();
 
