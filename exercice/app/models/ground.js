@@ -9,8 +9,8 @@ var ground = function( exports ) {
         textures.ground_0.wrapS = textures.ground_0.wrapT = THREE.RepeatWrapping;
         textures.ground_0.repeat.multiplyScalar( 6 );
 
-        mesh = new THREE.Mesh(new THREE.SphereBufferGeometry(radius, 64, 128, 0, PI, 0, PI), materials.ground );
-        // mesh = new THREE.Mesh(new THREE.IcosahedronBufferGeometry(radius, 4), new THREE.MeshBasicMaterial({map: textures.ground_0}));
+        mesh = new THREE.Mesh(new THREE.SphereBufferGeometry(radius, 32, 32, 0, PI, 0, PI), materials.ground );
+        // mesh = new THREE.Mesh(new THREE.IcosahedronBufferGeometry(radius, 6), materials.ground);
 
         mesh.receiveShadow = true;
         mesh.rotateX( -PI / 2 );
@@ -19,6 +19,15 @@ var ground = function( exports ) {
         exports.mesh = mesh;
 
         /*
+        // on va avoir besoin de manipuler des textures sur la vertex shader
+        // ce qui n'est pas toujours supporté. il faut donc vérifier si cette
+        // opération est possible
+        //https://github.com/KhronosGroup/WebGL/blob/90ceaac0c4546b1aad634a6a5c4d2dfae9f4d124/conformance-suites/1.0.0/extra/webgl-info.html
+        var gl = renderer.getContext();
+        if( gl.getParameter(gl.MAX_VERTEX_TEXTURE_IMAGE_UNITS) == 0 ) {
+            throw new Error( "vertex shader cannot read textures" );
+        }
+
         shaderLoader.load([
             "app/glsl/ground_vert.glsl",
             "app/glsl/ground_frag.glsl"
@@ -31,7 +40,7 @@ var ground = function( exports ) {
             ], onTexturesLoaded );
 
         });
-        //*/
+         //*/
 
     };
 
@@ -51,12 +60,7 @@ var ground = function( exports ) {
             },
             vertexShader:   shaderLoader.ground_vert,
             fragmentShader: shaderLoader.ground_frag,
-            // transparent:true,
-            roughness : .75,
-            metalness : .05,
-            map: textures.ground_0
         });
-        console.log (material );
 
         mesh.material = material;
     }

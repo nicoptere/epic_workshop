@@ -4,15 +4,6 @@ var grass = function( exports ) {
     var group, material;
     exports.init = function( renderer, ground, rocks ){
 
-        // on va avoir besoin de manipuler des textures sur la vertex shader
-        // ce qui n'est pas toujours supporté. il faut donc vérifier si cette
-        // opération est possible
-        //https://github.com/KhronosGroup/WebGL/blob/90ceaac0c4546b1aad634a6a5c4d2dfae9f4d124/conformance-suites/1.0.0/extra/webgl-info.html
-        var gl = renderer.getContext();
-        if( gl.getParameter(gl.MAX_VERTEX_TEXTURE_IMAGE_UNITS) == 0 ) {
-            throw new Error( "vertex shader cannot read textures" );
-        }
-
         group = new THREE.Object3D();
         exports.group = group;
 

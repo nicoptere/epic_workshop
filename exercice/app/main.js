@@ -52,11 +52,11 @@ function initTextures(){
     console.log( "load textures" );
     var urls = [
         'res/deer.jpg',
+        'res/environment.png',
         'res/grass.jpg',
         'res/ground_0.jpg',
         'res/rock_diffuse.jpg',
-        'res/rock_normal.jpg',
-        'res/rock_specular.jpg'
+        'res/rock_normal.jpg'
     ];
     textures.load( urls, initLights );
 }
@@ -80,6 +80,10 @@ function creaeObjects(){
             params:{ map:textures.deer}
         },
         {
+            name:"environment",
+            params:{ map:textures.environment }
+        },
+        {
             name:"grass",
             params:{ map:textures.grass }
         },
@@ -91,23 +95,28 @@ function creaeObjects(){
             name:"rock",
             params:{
                 map:textures.rock_diffuse,
-                normalMap: textures.rock_normal,
-                // displacementMap:textures.rock_specular,
-                // displacementScale:10,
-                // displacementBias:0
+                normalMap: textures.rock_normal
             }
         }
     ];
-    materials.init( config );//synchrone, les materiaux sont disponibles immédiatement
+    //initialise les matériaux qui seront utillisé par les objets
+    materials.init( config );
 
+    //crée le bichon
     deer.init( scene );
 
+    //crée l'arrière plan
+    environment.init( scene );
+
+    //crée le terrain
     ground.init();
     scene.add( ground.mesh );
 
+    //ajooute les cailloux
     rocks.init();
     scene.add( rocks.group );
 
+    //ajoute la végétation
     grass.init( renderer, ground, rocks );
     scene.add( grass.group );
 
@@ -124,7 +133,7 @@ function update(){
 
     controls.update();
 
-    renderer.render( scene, camera );
+//    renderer.render( scene, camera );
 
     post_processing.render();
 
