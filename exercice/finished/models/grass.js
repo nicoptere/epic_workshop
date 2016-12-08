@@ -2,10 +2,11 @@ var grass = function( exports ) {
 
 
     var group, material;
-    exports.init = function( renderer, ground, rocks ){
+    exports.init = function( scene, ground, rocks ){
 
         group = new THREE.Object3D();
         exports.group = group;
+        scene.add( group );
 
         /*
         var mesh = new THREE.Mesh( geometries.grass, materials.grass );
@@ -39,9 +40,9 @@ var grass = function( exports ) {
 
         //recentre le mesh des plantes
         geom.computeBoundingBox();
-
-        //ce est lme centre de la bounding box
         var bbox = geom.boundingBox;
+
+        //center est lme centre de la bounding box
         var center = bbox.min.add( bbox.max.clone().sub( bbox.min ).multiplyScalar( .5 ) );
         var height = ( bbox.max.y - bbox.min.y );
 

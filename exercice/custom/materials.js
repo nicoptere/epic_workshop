@@ -16,9 +16,9 @@ var materials = function( exports ){
     exports.add = function( config ){
 
         config.params.color = 0xFFFFFF;
-        var mat = new THREE.MeshStandardMaterial(config.params);
-        mat.roughness = .75;
-        mat.metalness = .05;
+        var mat = new THREE.MeshBasicMaterial(config.params);
+        // mat.roughness = .75;
+        // mat.metalness = .05;
         exports[ config.name ] = mat;
 
     };

@@ -19,16 +19,9 @@ function init(){
     camera.position.set( -40, 10, 25 );
 
     renderer = new THREE.WebGLRenderer();
-    renderer.shadowMap.enabled = true;
-    renderer.shadowMap.type = THREE.PCFSoftShadowMap;
     document.body.appendChild( renderer.domElement );
 
     controls = new THREE.OrbitControls( camera, renderer.domElement );
-    controls.minDistance = 35;
-    controls.maxDistance = 100;
-    controls.minPolarAngle = RAD * 10;
-    controls.maxPolarAngle = RAD * 90;
-    controls.target.y = 10;
 
     window.addEventListener( "resize", resize );
     resize();
@@ -100,16 +93,13 @@ function createObjects(){
     environment.init( scene );
 
     //crée le terrain
-    ground.init();
-    scene.add( ground.mesh );
+    ground.init( scene );
 
     //ajooute les cailloux
-    rocks.init();
-    scene.add( rocks.group );
+    rocks.init( scene );
 
     //ajoute la végétation
-    grass.init( renderer, ground, rocks );
-    scene.add( grass.group );
+    grass.init( scene, ground, rocks );
 
     //lance une boucle de mise à jour
     update();
@@ -119,9 +109,7 @@ function createObjects(){
 function update(){
 
     requestAnimationFrame( update );
-
     controls.update();
-
     renderer.render( scene, camera );
 
 }

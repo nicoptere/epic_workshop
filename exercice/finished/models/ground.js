@@ -1,7 +1,7 @@
 var ground = function( exports ) {
 
     var mesh, material;
-    exports.init = function( radius, height ){
+    exports.init = function( scene, radius, height ){
 
         exports.radius = radius = radius || 50;
         exports.height = height = height || .25;
@@ -17,6 +17,8 @@ var ground = function( exports ) {
         mesh.scale.z = height;
         mesh.position.y = -radius * height;
         exports.mesh = mesh;
+
+        scene.add( mesh );
 
         /*
         // on va avoir besoin de manipuler des textures sur la vertex shader

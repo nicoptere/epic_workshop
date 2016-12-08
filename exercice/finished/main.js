@@ -113,16 +113,13 @@ function createObjects(){
     environment.init( scene );
 
     //crée le terrain
-    ground.init();
-    scene.add( ground.mesh );
+    ground.init( scene );
 
     //ajooute les cailloux
-    rocks.init();
-    scene.add( rocks.group );
+    rocks.init( scene );
 
     //ajoute la végétation
-    grass.init( renderer, ground, rocks );
-    scene.add( grass.group );
+    grass.init( scene, ground, rocks );
 
     //lance une boucle de mise à jour
     update();

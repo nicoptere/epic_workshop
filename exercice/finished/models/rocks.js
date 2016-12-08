@@ -7,6 +7,7 @@ var rocks = function (exports) {
         //conteneur pour les futurs objets
         group = new THREE.Object3D();
         exports.group = group;
+        scene.add( group );
 
         //charge une scène faite avec https://threejs.org/editor/
         var xhr = new XMLHttpRequest();

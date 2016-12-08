@@ -3,16 +3,14 @@ var lights = function(exports){
     exports.init = function( scene, onComplete ){
 
         shaderLoader.load( [
-                "finished/glsl/skydome_vert.glsl",
-                "finished/glsl/skydome_frag.glsl"
-            ],
-            function(){
-                createSky( scene );
-                if( onComplete )onComplete();
-            } );
-
-        createLight( scene );
-
+            "finished/glsl/skydome_vert.glsl",
+            "finished/glsl/skydome_frag.glsl"
+        ],
+        function(){
+            createSky( scene );
+            createLight( scene );
+            if( onComplete )onComplete();
+        } );
     };
 
     function createSky( scene ){
