@@ -1,8 +1,9 @@
 .idea/*
-three.js
 /res/grass/
 /res/dino/
 /res/animals/
 /res/
 /libre/
 /lines.html
+/_three.js/
+/save/
