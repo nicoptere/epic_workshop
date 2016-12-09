@@ -7,7 +7,7 @@ il y a un slide deck ici pour l'intro et un peu de contexte: https://slides.com/
 pré-requis:
 
 * télécharger ou cloner ce repo
-* installer [chrome shader editor extension](chrome.google.com/webstore/detail/shader-editor/ggeaidddejpbakgafapihjbgdlbbbpob)
+* installer [chrome shader editor extension](https://chrome.google.com/webstore/detail/shader-editor/ggeaidddejpbakgafapihjbgdlbbbpob)
 * un serveur local ([xampp](https://www.apachefriends.org/fr/index.html) ou autre)
 
 j'ai extrait certains fichiers de THREE pour éviter de télécharger tout le repo (725Mo au 09/12/16) 
